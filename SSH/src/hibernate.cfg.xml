@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">true</property>
+		<property name="formatSQL">false</property>
+		<property name="hibernate.hbm2ddl.auto">none</property>
+		<!-- 通过getCurrentSession()方法获取Session对象时需要设置 -->
+		<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</property>
+	</session-factory>
+</hibernate-configuration>

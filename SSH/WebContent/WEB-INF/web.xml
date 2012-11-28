@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+	<display-name>SSH</display-name>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/applicationContext.xml
+			<!-- classpath:/cacheContext.xml
+			classpath:/coreContext.xml -->
+		</param-value>
+	</context-param>
+	
+	<filter>
+	    <filter-name>UrlRewriteFilter</filter-name>
+	    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>UrlRewriteFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+	    <filter-name>loginFilter</filter-name>
+	    <filter-class>com.ssh.comm.filter.LoginFilter</filter-class>
+	    <init-param>
+	        <param-name>loginPage</param-name>
+	        <param-value>/login.do</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>opLogin</param-name>
+	        <param-value>/login!login.do</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>proLogin</param-name>
+	        <param-value>/</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>loginFilter</filter-name>
+	    <url-pattern>/system/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- struts start -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern> 
+	   <dispatcher>REQUEST</dispatcher>   
+	   <dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<!-- struts end -->
+	
+    <!-- spring start -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- Spring 刷新Introspector防止内存泄露 -->
+	<!-- <listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener> -->
+	<!-- spring end -->
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+
+</web-app>

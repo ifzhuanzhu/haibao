@@ -1,0 +1,1 @@
+alter table tb_admin rename to tb_Admin;
